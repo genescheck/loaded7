@@ -284,7 +284,7 @@
 } 
 
 #loaded7 .content-recently-visited-image-src { 
-  width:100px; height:120px; 
+  max-width:100px; max-height:120px; 
 } 
 
 #loaded7 .content-also-purchased-products-text-name a { 
