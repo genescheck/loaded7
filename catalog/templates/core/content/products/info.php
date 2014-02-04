@@ -181,7 +181,6 @@ function setQty(mode) {
 }
 
 function refreshPrice() {
-  $('.content-products-info-price').html('<img class="large-margin-left" src="images/loading.gif">').addClass('margin-right');
   var group = '<?php echo DEFAULT_CUSTOMERS_GROUP_ID; ?>';
   var id = '<?php echo $lC_Product->getID(); ?>';
   var module = '<?php echo $lC_Template->getModule(); ?>';
