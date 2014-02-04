@@ -111,7 +111,6 @@ class lC_Product {
           $Qsubproducts->execute();
 
           while ( $Qsubproducts->next() ) {
-            //$this->_data['variants'][$Qsubproducts->valueInt('products_id')]['data'] = array('price' => $this->getPriceBreak(),
             $this->_data['variants'][$Qsubproducts->valueInt('products_id')]['data'] = array('price' => $Qsubproducts->value('products_price'),
                                                                                              'tax_class_id' => $Qsubproducts->valueInt('products_tax_class_id'),
                                                                                              //'tax_class_id' => $this->getTaxClassID(),
@@ -257,7 +256,7 @@ class lC_Product {
   
   //######## PRICING #########//
   public function getPriceInfo($product_id, $customers_group_id = 1, $data) {
-    global $lC_Specials, $lC_Database, $lC_Customer, $lC_Services, $lC_Currencies;
+    global $lC_Specials, $lC_Database, $lC_Language, $lC_Customer, $lC_Services, $lC_Currencies;
 
     $quantity = (isset($_GET['quantity']) && $_GET['quantity'] != null) ? (int)$_GET['quantity'] : 1;
 
@@ -316,10 +315,10 @@ class lC_Product {
             $listing = $lC_Currencies->displayPrice($price, DECIMAL_PLACES);
             break;
           case 'Starts At' :
-            $listing = '<div class=""><div class="">Starts At</div><div class="">' . $lC_Currencies->displayPrice( ($maxBreak['price_break'] < $price) ? $maxBreak['price_break'] : $price, $this->getTaxClassID()) . '</div>';          
+            $listing = '<div class="margin-top-neg"><span class="lt-blue">' . $lC_Language->get('pricing_starts_at') . '</span><p class="lead small-margin-bottom small-margin-top-neg">' . $lC_Currencies->displayPrice( ($maxBreak['price_break'] < $price) ? $maxBreak['price_break'] : $price, $this->getTaxClassID()) . '</p></div>';          
             break;
           case 'Low As' :
-            $listing = '<div class=""><div class="">Low As</div><div class="">' . $lC_Currencies->displayPrice( ($maxBreak['price_break'] < $price) ? $maxBreak['price_break'] : $price, $this->getTaxClassID()) . '</div>';
+            $listing = '<div class="margin-top-neg"><span class="lt-blue">' . $lC_Language->get('pricing_low_as')  . '</span><p class="lead small-margin-bottom small-margin-top-neg">' . $lC_Currencies->displayPrice( ($maxBreak['price_break'] < $price) ? $maxBreak['price_break'] : $price, $this->getTaxClassID()) . '</p></div>';          
             break;
           default :
             $listing =  $lC_Currencies->displayPrice( ($maxBreak['price_break'] < $price) ? $maxBreak['price_break'] : $price, $this->getTaxClassID()) . ' - ' . $lC_Currencies->displayPrice($price, $this->getTaxClassID());
@@ -447,19 +446,31 @@ class lC_Product {
   
   public function getPriceFormated($with_special = false) {
     global $lC_Services, $lC_Specials, $lC_Currencies;
-
-    if (($with_special === true) && $lC_Services->isStarted('specials') && ($new_price = $lC_Specials->getPrice($this->_data['id'])) && ($lC_Specials->getPrice($this->_data['id']) < $this->getPriceBreak())  ) {
-     // $price = '<big>' . $lC_Currencies->displayPrice($new_price, $this->_data['tax_class_id']) . '</big><small>' . $lC_Currencies->displayPrice($this->_data['price'], $this->_data['tax_class_id']) . '</small>'; 
+    
+    $pData = $this->getPriceInfo($this->getID(), 1, array());
+    
+    if (isset($pData['qpbData']['listing']) && empty($pData['qpbData']['listing']) === false) {
+      $result = $pData['qpbData']['listing'];
+    } else {
+      $result = $pData['formatted'];
+    }
+    
+    
+    return $result;
+    
+    /*
+    if (($with_special === true) && $lC_Services->isStarted('specials') && ($new_price = $lC_Specials->getPrice($this->_data['id'])))  {
         $price = '<s>' . $lC_Currencies->displayPrice($this->_data['price'], $this->_data['tax_class_id']) . '</s> <span class="product-special-price">' . $lC_Currencies->displayPrice($new_price, $this->_data['tax_class_id']) . '</span>';
     } else {
       if ( $this->hasVariants() ) {
         $price = 'from&nbsp;' . $lC_Currencies->displayPrice($this->getVariantMinPrice(), $this->_data['tax_class_id']);
       } else {
-        $price = $lC_Currencies->displayPrice($this->getPriceBreak(), $this->getTaxClassID());
+        $price = $lC_Currencies->displayPrice($this->getPrice(), $this->getTaxClassID());
       }
     }
 
     return $price;
+    */
   }
 
   public function getVariantMinPrice() {

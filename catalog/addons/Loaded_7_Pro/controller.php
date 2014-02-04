@@ -124,11 +124,9 @@ class Loaded_7_Pro extends lC_Addon { // your addon must extend lC_Addon
         $lC_Database->simpleQuery("insert into " . TABLE_CONFIGURATION . " (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES('Skip Shipping Page', 'SKIP_CHECKOUT_SHIPPING_PAGE', '-1', 'Bypass the checkout shipping page? No shipping will be charged.', 19, 0, NULL, now(), 'lc_cfg_use_get_boolean_value', 'lc_cfg_set_boolean_value(array(1, -1))')");
       }
       // qty breaks config
-      $lC_Database->simpleQuery("delete from " . TABLE_CONFIGURATION_GROUP . " where configuration_group_title = 'Product Pricing'");
-      $lC_Database->simpleQuery("insert into " . TABLE_CONFIGURATION_GROUP . " (configuration_group_id, configuration_group_title, configuration_group_description, sort_order, visible) VALUES('122', 'Product Pricing', 'Product Pricing', '9', '1')");
       if (!defined('PRODUCT_PRICING_QPB_FORMAT')) {
         $lC_Database->simpleQuery("delete from " . TABLE_CONFIGURATION . " where configuration_key = 'PRODUCT_PRICING_QPB_FORMAT'");
-        $lC_Database->simpleQuery("insert into " . TABLE_CONFIGURATION . " (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES('Price Break Format', 'PRODUCT_PRICING_QPB_FORMAT', 'Range', 'The price break format shown on the product listing pages.', 122, 0, NULL, now(), NULL, 'lc_cfg_set_boolean_value(array(''None'', ''Range'', ''Starts At'', ''Low As''))')");
+        $lC_Database->simpleQuery("insert into " . TABLE_CONFIGURATION . " (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES('Price Break Format', 'PRODUCT_PRICING_QPB_FORMAT', 'Range', 'The price break format shown on the product listing pages.', 8, 11, NULL, now(), NULL, 'lc_cfg_set_boolean_value(array(''None'', ''Range'', ''Starts At'', ''Low As''))')");
       }
       
       $this->_clearCache();
