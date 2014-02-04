@@ -315,7 +315,7 @@ class lC_Product {
             $listing = $lC_Currencies->displayPrice($price, DECIMAL_PLACES);
             break;
           case 'Starts At' :
-            $listing = '<div class="margin-top-neg"><span class="lt-blue">' . $lC_Language->get('pricing_starts_at') . '</span><p class="lead small-margin-bottom small-margin-top-neg">' . $lC_Currencies->displayPrice( ($maxBreak['price_break'] < $price) ? $maxBreak['price_break'] : $price, $this->getTaxClassID()) . '</p></div>';          
+            $listing = '<div class="margin-top-neg"><span class="lt-blue">' . $lC_Language->get('pricing_starts_at') . '</span><p class="lead small-margin-bottom small-margin-top-neg">' . $lC_Currencies->displayPrice($this->getBasePrice(), $this->getTaxClassID()) . '</p></div>';          
             break;
           case 'Low As' :
             $listing = '<div class="margin-top-neg"><span class="lt-blue">' . $lC_Language->get('pricing_low_as')  . '</span><p class="lead small-margin-bottom small-margin-top-neg">' . $lC_Currencies->displayPrice( ($maxBreak['price_break'] < $price) ? $maxBreak['price_break'] : $price, $this->getTaxClassID()) . '</p></div>';          
