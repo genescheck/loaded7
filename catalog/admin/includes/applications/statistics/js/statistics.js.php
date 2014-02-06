@@ -13,7 +13,7 @@ if (!empty($_GET['module'])) { // module listing
 ?>
 <script>
   $(document).ready(function() {
-    var cols = '<?php echo $cols; ?>';
+    var cols = '<?php echo $cols; ?>';   
     if (cols == 2) {
       var aoCols = [{ "sWidth": "80%", "bSortable": true, "sClass": "dataCol1" },
                     { "sWidth": "20%", "bSortable": true, "sClass": "dataCol2" }];
@@ -30,6 +30,14 @@ if (!empty($_GET['module'])) { // module listing
       var aoCols = [{ "sWidth": "40%", "bSortable": true, "sClass": "dataCol1" },
                     { "sWidth": "15%", "bSortable": true, "sClass": "dataCol2" },
                     { "sWidth": "15%", "bSortable": true, "sClass": "dataCol3" },
+                    { "sWidth": "15%", "bSortable": true, "sClass": "dataCol4" },
+                    { "sWidth": "15%", "bSortable": true, "sClass": "dataCol5" }];
+    }
+    else if (cols == 6) {
+      var aoCols = [{ "sWidth": "25%", "bSortable": true, "sClass": "dataCol1" },
+                    { "sWidth": "15%", "bSortable": true, "sClass": "dataCol2" },
+                    { "sWidth": "15%", "bSortable": true, "sClass": "dataCol3" },
+                    { "sWidth": "15%", "bSortable": true, "sClass": "dataCol4" },
                     { "sWidth": "15%", "bSortable": true, "sClass": "dataCol4" },
                     { "sWidth": "15%", "bSortable": true, "sClass": "dataCol5" }];
     }

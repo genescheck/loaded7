@@ -6,5 +6,9 @@
 #  @version    $Id: low_stock.php v1.0 2013-08-08 datazen $
 
 statistics_low_stock_title = Low Stock
-statistics_low_stock_table_heading_products = Products
-statistics_low_stock_table_heading_level = Level
+statistics_low_stock_table_heading_products = Product Name
+statistics_low_stock_table_heading_qty_available = Qty Available
+statistics_low_stock_table_heading_model = Model
+statistics_low_stock_table_heading_sales = 60 Days Sales
+statistics_low_stock_table_heading_est_stock = Est. Stock
+statistics_low_stock_table_heading_status = Status

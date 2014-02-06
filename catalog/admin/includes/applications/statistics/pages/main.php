@@ -21,6 +21,7 @@
   .dataCol3 { text-align: left; }  
   .dataCol4 { text-align: left; }  
   .dataCol5 { text-align: left; }
+  .dataCol5 { text-align: left; }
   </style>
   <div class="with-padding-no-top">
     <form name="batch" id="batch" action="#" method="post">
@@ -40,7 +41,7 @@
       </tbody>
       <tfoot>
         <tr>
-          <th colspan="5">&nbsp;</th>
+          <th colspan="10">&nbsp;</th>
         </tr>
       </tfoot>
     </table>

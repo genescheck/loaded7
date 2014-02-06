@@ -60,6 +60,7 @@ class lC_Statistics_Admin {
     $cnt = 0;
     $col = array();
     $result = array('aaData' => array());
+
     foreach ( $lC_Statistics->getData() as $data ) {
       if ( !isset($columns) ) $columns = sizeof($data);
       for ( $i = 0; $i < $columns; $i++ ) {
@@ -74,6 +75,8 @@ class lC_Statistics_Admin {
         $result['aaData'][] = array("$col[0]", "$col[1]", "$col[2]", "$col[3]");
       } else if ($columns == 5) {
         $result['aaData'][] = array("$col[0]", "$col[1]", "$col[2]", "$col[3]", "$col[4]");
+      } else if ($columns == 6) {
+        $result['aaData'][] = array("$col[0]", "$col[1]", "$col[2]", "$col[3]", "$col[4]", "$col[5]");
       }
     }
     $result['total'] = $cnt; 

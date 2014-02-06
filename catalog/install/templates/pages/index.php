@@ -205,7 +205,7 @@ TD { height:19px; }
                 } else {
                   $okCurl = cURLTest();
                 }
-                if (!$okCurl) $ok = false;
+                //if (!$okCurl) $ok = false;
                 ?>                
                 <td align="right"><img src="templates/img/icons/<?php echo (($okCurl) ? 'tick.gif' : 'cross.gif'); ?>" border="0" width="16" height="16"></td>
               </tr>

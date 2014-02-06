@@ -40,7 +40,11 @@ class lC_Statistics_Low_Stock extends lC_Statistics {
     global $lC_Language;
 
     $this->_header = array($lC_Language->get('statistics_low_stock_table_heading_products'),
-                           $lC_Language->get('statistics_low_stock_table_heading_level'));
+                           $lC_Language->get('statistics_low_stock_table_heading_qty_available'),
+                           $lC_Language->get('statistics_low_stock_table_heading_model'),
+                           $lC_Language->get('statistics_low_stock_table_heading_sales'),
+                           $lC_Language->get('statistics_low_stock_table_heading_est_stock'),
+                           $lC_Language->get('statistics_low_stock_table_heading_status'));
   }
 
   protected function _setData() {
@@ -48,7 +52,7 @@ class lC_Statistics_Low_Stock extends lC_Statistics {
 
     $this->_data = array();
 
-    $this->_resultset = $lC_Database->query('select p.products_id, pd.products_name, products_quantity from :table_products p, :table_products_description pd where p.products_id = pd.products_id and pd.language_id = :language_id and p.products_quantity <= :stock_reorder_level order by p.products_quantity desc');
+    $this->_resultset = $lC_Database->query('select p.products_id, pd.products_name, p.products_quantity, p.products_model, p.products_status from :table_products p, :table_products_description pd where p.products_id = pd.products_id and pd.language_id = :language_id and p.products_quantity <= :stock_reorder_level order by p.products_quantity desc');
     $this->_resultset->bindTable(':table_products', TABLE_PRODUCTS);
     $this->_resultset->bindTable(':table_products_description', TABLE_PRODUCTS_DESCRIPTION);
     $this->_resultset->bindInt(':language_id', $lC_Language->getID());
@@ -57,8 +61,14 @@ class lC_Statistics_Low_Stock extends lC_Statistics {
     $this->_resultset->execute();
 
     while ( $this->_resultset->next() ) {
+      $products_status = (($this->_resultset->valueInt('products_status') == 1) ? '<span class="icon-tick icon-size2 icon-green cursor-pointer with-tooltip" title="' . $lC_Language->get('text_disable_product') . '"></span>' : '<span class="icon-cross icon-size2 icon-red cursor-pointer with-tooltip" title="' . $lC_Language->get('text_enable_product') . '"></span>');
+
       $this->_data[] = array(lc_link_object(lc_href_link_admin(FILENAME_DEFAULT, 'products&pID=' . $this->_resultset->valueInt('products_id') . '&action=preview'), $this->_icon . '&nbsp;' . $this->_resultset->value('products_name')),
-                             $this->_resultset->valueInt('products_quantity'));
+                             $this->_resultset->valueInt('products_quantity'),
+                             $this->_resultset->value('products_model'),
+                             $this->_resultset->valueInt('products_quantity'),
+                             '-',
+                             $products_status );
     }
   }
 }
