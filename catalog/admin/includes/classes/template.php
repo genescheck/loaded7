@@ -189,46 +189,5 @@ class lC_Template_Admin extends lC_Template {
     //$this->_template_id = $_SESSION['template']['id'];
     //$this->_template = $_SESSION['template']['code'];
   }
-
-  /**
-  * Delete QR Generated Images.
-  *
-  * @param string $code The code of the template to use
-  * @access public
-  */
-  public static function deleteQRImages() {
-    $dir = '../includes/work/qrcode/';
-    foreach (glob($dir."*.png") as $file) {
-      /*** if file is 24 hours (86400 seconds) old then delete it ***/
-      if (filemtime($file) < time() - 86400) {
-        @unlink($file);
-      }
-    }
-  }
-  
-  /**
-  * Generate QR Images.
-  *
-  * @param string $code The code of the template to use
-  * @access public
-  */
-  public function getQRCode() {
-    global $lC_Session, $lC_Language, $lC_Template;
-    
-    $BarcodeQR = new BarcodeQR();
-    $qrcode_url = (($request_type == 'SSL') ? HTTPS_SERVER : HTTP_SERVER) . $_SERVER['REQUEST_URI'];
-    
-    if(empty($_GET) === false && !array_key_exists($lC_Session->getName(),$_GET)) {     
-      $qrcode_url .= '&'.$lC_Session->getName().'='.$lC_Session->getID();
-    } else if(!isset($_GET) || empty($_GET)){
-      $qrcode_url .= '?'.$lC_Session->getName().'='.$lC_Session->getID();
-    }
-    
-    $BarcodeQR->draw(200, '../includes/work/qrcode/a' . $_SESSION['admin']['id'] . '.png');
-    echo '<h5>QR Code</h5><img src="../includes/work/qrcode/a' . $_SESSION['admin']['id'] . '.png" /><br /><h6>Current URL</h6><p>' . $qrcode_url . '</p>';
-
-    $lC_Template->deleteQRImages();
-  }
-  
 }
 ?>

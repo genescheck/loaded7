@@ -532,12 +532,7 @@
           <p style="float:left; padding:10px 0 0px 10px; font-weight:bold;">QR Code for Current URL</p> 
         </div>
         <div class="clear-both"></div>
-        <div id="qr-message" class="message" style="display: none;">
-         <a class="close-qr" title="Hide message" onclick="$('#qr-message').hide('500');"><span style="color:#fff;">X</span></a>
-         <?php 
-         $lC_Template->getQRCode();
-         ?>
-         </div>
+        <div id="ShowQRCode"></div>  
         <!-- QR Code EOF -->
         <p class="w-mark"></p>
       </footer>      
