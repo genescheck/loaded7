@@ -214,7 +214,7 @@ class lC_Search extends lC_Products {
     }
 
     if ($this->hasKeywords()) {
-      $Qlisting->prepareSearch($this->_keywords, array('pd.products_name', 'pd.products_description'), true);
+      $Qlisting->prepareSearch($this->_keywords, array('pd.products_name', 'pd.products_description', 'p.products_model', 'p.products_sku'), true);
     }
 
     if ($this->hasDateSet('from')) {
